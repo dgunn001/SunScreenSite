@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <div>
+            <button onclick="getLocation()">Use Current Location</button>
+            <p id="demo"></p>
+            <script>
+            var x = document.getElementById("demo");
+            var y = document.getElementById("display");
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else { 
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                } 
+            }
+            function showPosition(position) {
+                
+                x.innerHTML = "Latitude: " + position.coords.latitude + 
+                "<br>Longitude: " + position.coords.longitude;
+                
+            }
+            </script>
+            Zip Code
+            <input type="text" name="message" id="user_input">
+            <button type="submit" onclick="zipToLoc();" id="sub"> Enter</button>  <br/>
+            <label>Your Loc: </label>
+            <p><span id ="display"> </span></p>
+            
+            <script>
+                var input = document.getElementById("user_input");
+                input.addEventListener("keyup", function(event){
+                    if (event.keyCode === 13) {
+                        event.preventDefault();
+                        document.getElementById("sub").click();
+                    }
+                });
+                function zipToLoc() {
+                    document.getElementById("display").innerHTML = 
+                    document.getElementById("user_input").value;
+                }
+            </script>
+            
+            
+                
+            
+        </div>
+        <div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+                <h1>This is a Heading</h1>
+                <p>This is a paragraph.</p>
+
+
+                Lattitude<input type = "text" id="lat" value= position.coords.latitude>
+                Longtitde<input type = "text" id="lng" value= position.coords.latitude>
+
+                <button type="submit" onclick = "getUVIndex()">Pegga</button>
+                <p> <span id="out"></span></p>
+
+
+
+
+        <script language = "javascript">
+        var i = document.getElementById("out"); 
+        function getUVIndex() {
+         var lat = $('#lat').val();
+         var lng = $('#lng').val();
+         //alert(lat);
+         //alert(lng);
+         //var alt = "100";
+         //var ozone = "100";
+        //var dt = "2019-05-18T20:57:23:462Z";
+        
+
+
+
+         $.ajax({
+           type: 'GET',
+           dataType: 'json',
+           beforeSend: function(request) {
+             request.setRequestHeader('x-access-token', 'e9d9d0217790c9e7936363c705ad06fd');
+           },
+           url: 'https://api.openuv.io/api/v1/uv?lat=' + lat + '&lng=' + lng,
+           success: function(response) {
+              alert(response.result.uv);
+                i.innerHTML = response.result.uv;
+                alert("success");
+           },
+           error: function(response) {
+             // handle error response
+             //alert(JSON.parse(response).error);
+             alert("error");
+           }
+         });
+        }
+
+        </script>
+        </div>
+        <div>TODO Reapplication</div>
+    </body>
+</html>
