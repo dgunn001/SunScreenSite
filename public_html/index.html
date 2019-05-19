@@ -8,6 +8,8 @@ and open the template in the editor.
 <html>
     <head>
         <title>TODO supply a title</title>
+        <link rel="stylesheet" href="timer.css" type="text/css"/>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -103,14 +105,39 @@ and open the template in the editor.
 
         </script>
         </div>
-        <div class="container">
-            <p id="timer">
-            <span id="timer-days"></span>
-            <span id="timer-hours"></span>
-            <span id="timer-mins"></span>
-            <span id="timer-secs"></span>
-            </p>
-        </div>
-        <script src="script.js"></script>
+        <label id="minutes">00</label>:<label id="seconds">00</label>
+        <button onclick="setTimeout(start, 0)"> Start Timer</button>
+        <p><span id="reapply"></span></p>
+        <script>
+            var minutesLabel = document.getElementById("minutes");
+            var secondsLabel = document.getElementById("seconds");
+            var reapply = document.getElementById("reapply");
+            var totalSeconds = 0;
+            
+            function start(){
+                    setInterval(setTime, 1000);
+            }
+            function setTime() {
+                if(totalSeconds < 5){
+                    ++totalSeconds;
+                    secondsLabel.innerHTML = pad(totalSeconds % 60);
+                    minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+                } else {
+                    secondsLabel.innerHTML = pad(totalSeconds % 60);
+                    minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+                    reapply.innerHTML = "TIMER IS UP, REAPPLY!";
+                }
+            }
+
+            function pad(val) {
+              var valString = val + "";
+              if (valString.length < 2) {
+                return "0" + valString;
+              } else {
+                return valString;
+              }
+            }
+        </script>
+
     </body>
 </html>
