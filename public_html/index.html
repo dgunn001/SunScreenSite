@@ -8,7 +8,7 @@ and open the template in the editor.
 <html>
     <head>
         <title>TODO supply a title</title>
-        <link rel="stylesheet" href="timer.css" type="text/css"/>
+        <link rel="stylesheet" href="css.css" type="text/css"/>
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +45,15 @@ and open the template in the editor.
                 Longtitde<input type = "text" id="lng">
 
                 <button type="submit" onclick = "getUVIndex();" id="sub">Pegga</button>
-                <p> <span id="out"></span></br><span id="out2"></span> </p>
+                <p> <span id="out"></span> </p>
+                <p><span id="out2"></span> </p>
+                <div class ="SPFbox" style="display:none" id = "sBox">
+                    <center><span id="spfHead" ></span></center>
+                <center><span id="spf"></span> </center>
+                </div>
+                
+                
+                
                 <script>
                 var input = document.getElementById("lat");
                 input.addEventListener("keyup", function(event){
@@ -68,6 +76,8 @@ and open the template in the editor.
         <script language = "javascript">
         var i = document.getElementById("out");
         var r = document.getElementById("out2"); 
+        var spf = document.getElementById("spf");
+        var spfHead = document.getElementById("spfHead");
         function getUVIndex() {
          var lat = $('#lat').val();
          var lng = $('#lng').val();
@@ -92,7 +102,40 @@ and open the template in the editor.
               
                 i.innerHTML = "UV: " + response.result.uv;
                 r.innerHTML = "UV Max: " + response.result.uv_max;
-                obj.html(obj.html().replace(/\n/g,'<br/>'));
+                document.getElementById("sBox").style.display = "block";
+                var k = response.result.uv;
+                if(response.result.uv < 3 && response.result.uv >= 0){
+                    spfHead.innerHTML = "0 to 2: Low";
+                    spf.innerHTML = " A UV Index reading of 0 to 2 means low danger \n\
+                                    from the sun's UV rays for the average person. \n\
+                                    Wear sunglasses on bright days. If you burn easily, cover up and use broad spectrum SPF 30+ sunscreen.\n\
+                                     Watch out for bright surfaces, like sand, water and snow, which reflect UV and increase exposure.";
+                } else if (k >= 3 && k < 5){
+                    spfHead.innerHTML = "3 to 5: Moderate";
+                    spf.innerHTML = " A UV Index reading of 3 to 5 means moderate risk of harm from unprotected sun exposure.the average person.prototype\n\
+                                    Stay in shade near midday when the sun is strongest. If outdoors, wear protective clothing, a wide-brimmed hat, and UV-blocking sunglasses.prototype\n\
+                                    Generously apply broad spectrum SPF 30+ sunscreen every 2 hours, even on cloudy days, and after swimming or sweating. \n\
+                                    Watch out for bright surfaces, like sand, water and snow, which reflect UV and increase exposure.";
+                } else if (k >= 5 && k <7){
+                    spfHead.innerHTML = "6 to 7: High";
+                    spf.innerHTML = "UV Index reading of 6 to 7 means high risk of harm from unprotected sun exposure. Protection against skin and eye damage is needed. \n\
+                                    Reduce time in the sun between 10 a.m. and 4 p.m. If outdoors, seek shade and wear protective clothing, a wide-brimmed hat, and UV-blocking sunglasses.prototype\n\
+                                    Generously apply broad spectrum SPF 30+ sunscreen every 2 hours, even on cloudy days, and after swimming or sweating. \n\
+                                    Watch out for bright surfaces, like sand, water and snow, which reflect UV and increase exposure.";
+                } else if ( k >= 7 && k <10){
+                    spfHead.innerHTML = "8 to 10: Very High";
+                    spf.innerHTML = "UV Index reading of 8 to 10 means very high risk of harm from unprotected sun exposure. Take extra precautions because unprotected skin and eyes will be damaged and can burn quickly. \n\
+                                    Minimize sun exposure between 10 a.m. and 4 p.m. If outdoors, seek shade and wear protective clothing, a wide-brimmed hat, and UV-blocking sunglasses. \n\
+                                    Generously apply broad spectrum SPF 30+ sunscreen every 2 hours, even on cloudy days, and after swimming or sweating. \n\
+                                    Watch out for bright surfaces, like sand, water and snow, which reflect UV and increase exposure.";          
+                } else {
+                    spfHead.innerHTML = "11 or More: Extreme";
+                    spf.innerHTML = "A UV Index reading of 11 or more means extreme risk of harm from unprotected sun exposure. Take all precautions because unprotected skin and eyes can burn in minutes. \n\
+                                    Try to avoid sun exposure between 10 a.m. and 4 p.m. If outdoors, seek shade and wear protective clothing, a wide-brimmed hat, and UV-blocking sunglasses. \n\
+                                    Generously apply broad spectrum SPF 30+ sunscreen every 2 hours, even on cloudy days, and after swimming or sweating. \n\
+                                    Watch out for bright surfaces, like sand, water and snow, which reflect UV and increase exposure.";
+            
+                }
                 //alert("success");
            },
            error: function(response) {
