@@ -1,0 +1,17 @@
+.InfoBox {
+  background-color:#E48F02;
+  width: 1000px;
+  padding: 20px;
+  border: 5px #FDD158;
+  
+}
+.InfoSub{
+
+    background-color: #FDD158;
+  width: 1000px;
+  border: 5px #FDD158;
+  margin-bottom: 20px;
+  padding: 20px;
+  text-align: left;
+
+}
